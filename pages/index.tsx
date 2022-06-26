@@ -1,16 +1,17 @@
-import type { NextPage } from "next";
-import { useTheme } from "next-themes";
+import type { NextPage } from 'next';
+import { useTheme } from 'next-themes';
 
 const Home: NextPage = () => {
-  const { systemTheme, theme, setTheme } = useTheme();
-
-  console.log({ systemTheme, theme });
+  const { setTheme } = useTheme();
 
   return (
     <div>
-          <button className="btn" onClick={() => setTheme("cupcake")}>cupcake</button>
-          <button className="btn" onClick={() => setTheme("dark")}>dark</button>
-
+      <button className="btn" onClick={() => setTheme('cupcake')}>
+        cupcake
+      </button>
+      <button className="btn" onClick={() => setTheme('dark')}>
+        dark
+      </button>
     </div>
   );
 };
