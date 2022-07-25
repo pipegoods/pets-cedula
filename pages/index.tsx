@@ -11,6 +11,7 @@ const Home: NextPage = () => {
             Crear una identificacion para tus mascotas y poder controlarlas
             desde cualquier lugar.
           </p>
+
           <button className="btn btn-primary gap-2">
             <Image src="/svg/qr-code.svg" alt="qr" width={18} height={18} />
             crear QR
