@@ -1,5 +1,6 @@
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Header = () => {
   const { data: session } = useSession();
@@ -7,7 +8,9 @@ const Header = () => {
   return (
     <header className="navbar bg-base-100 fixed z-10">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">Pets Cedula</a>
+        <Link href="/">
+          <a className="btn btn-ghost normal-case text-xl">Pets Cedula</a>
+        </Link>
       </div>
       <div className="flex-none">
         {session ? (
