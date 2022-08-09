@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           fetch(resource, init).then((res) => res.json()),
       }}
     >
-      <ThemeProvider themes={['dark', 'cupcake']}>
+      <ThemeProvider defaultTheme="cupcake" themes={['dark', 'cupcake']}>
         <SessionProvider session={session}>
           <MainLayout>
             <Component {...pageProps} />
