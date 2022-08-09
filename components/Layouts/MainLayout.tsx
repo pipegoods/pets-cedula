@@ -1,13 +1,24 @@
 import Header from '@components/Header';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
+import Lottie from 'react-lottie-player';
 import type { MainLayoutProps } from 'types/MainLayout';
+import lottieCat from '../../config/data/loanding-cat.json';
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   const { status } = useSession();
 
   if (status === 'loading') {
-    return <>Cargando app...</>; // TODO: colocarle un loading lindo a esto
+    return (
+      <div className="grid place-content-center min-h-screen">
+        <Lottie
+          loop
+          animationData={lottieCat}
+          play
+          style={{ width: 150, height: 150 }}
+        />
+      </div>
+    );
   }
 
   return (

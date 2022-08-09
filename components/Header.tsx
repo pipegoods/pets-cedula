@@ -16,7 +16,10 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex-none gap-5">
-        <Button onClick={() => setTheme(theme === 'dark' ? 'cupcake' : 'dark')}>
+        <Button
+          className="hidden md:block"
+          onClick={() => setTheme(theme === 'dark' ? 'cupcake' : 'dark')}
+        >
           {theme}
         </Button>
         {session ? (
@@ -45,7 +48,7 @@ const Header = () => {
                 tabIndex={0}
                 className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
               >
-                <li>
+                {/* <li>
                   <a className="justify-between">
                     Perfil
                     <span className="badge">Nuevo</span>
@@ -53,7 +56,7 @@ const Header = () => {
                 </li>
                 <li>
                   <a>Configuracion</a>
-                </li>
+                </li> */}
                 <li onClick={() => signOut()}>
                   <a>Cerrar sesion</a>
                 </li>

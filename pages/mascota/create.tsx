@@ -152,7 +152,14 @@ const CreatePet: NextPage = () => {
         <input
           type="submit"
           value="Crear mascota"
-          disabled={!image}
+          disabled={
+            !image ||
+            !formData.name ||
+            !formData.age ||
+            !formData.breed ||
+            !formData.animal ||
+            !formData.bloodType
+          }
           className="cursor-pointer btn btn-primary"
         />
       </form>
