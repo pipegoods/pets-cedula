@@ -1,32 +1,16 @@
-import { API_URL_FILES } from 'config/contans';
+import { BLOODTYPE } from 'config/data/bloodtype.data';
+import { createPet } from 'config/services/createPet';
 import { uploadFiles } from 'config/services/uploadFiles';
 import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
-
-type tplotOptions = {
-  [key: string]: string[];
-};
-
-const BLOODTYPE: tplotOptions = {
-  dog: [
-    'DEA-1.1',
-    'DEA-1.2',
-    'DEA-3',
-    'DEA-4',
-    'DEA-5',
-    'DEA-6',
-    'DEA-7',
-    'DEA-8',
-  ],
-  cat: ['A', 'B', 'AB'],
-};
+import { useRouter } from 'next/router';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 const CreatePet: NextPage = () => {
+  const router = useRouter();
   const { data } = useSession();
   const [formData, setFormData] = useState({
     name: '',
-    photo: '',
     bloodType: '',
     breed: '',
     animal: '',
@@ -35,22 +19,20 @@ const CreatePet: NextPage = () => {
 
   const [image, setImage] = useState<File>();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleImageChange = function (e: React.ChangeEvent<HTMLInputElement>) {
+  const handleImageChange = function (e: ChangeEvent<HTMLInputElement>) {
     const fileList = e.target.files;
-
     if (!fileList) return;
-
     setImage(fileList[0]);
   };
 
-  const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const selectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     setFormData({
       ...formData,
@@ -58,25 +40,18 @@ const CreatePet: NextPage = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const photo_name = await uploadFiles(image as File);
-    setFormData({
+
+    await createPet({
       ...formData,
+      age: Number(formData.age),
       photo: photo_name.url,
+      ownerId: data?.user.id || '',
     });
 
-    await fetch('/api/pets', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...formData,
-        age: Number(formData.age),
-        ownerId: data?.user.id,
-      }),
-    });
+    router.push('/mascota');
   };
 
   return (
