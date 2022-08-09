@@ -15,7 +15,7 @@ const MascotaId: NextPage = () => {
   useEffect(() => {
     const generateQrCode = () => {
       QRCode.toDataURL(
-        'https://pets-cedula.vercel.app/' + id,
+        'https://pets-cedula.vercel.app/mascota' + id,
         {
           width: 900,
           margin: 3,
