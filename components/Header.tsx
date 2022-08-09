@@ -22,7 +22,10 @@ const Header = () => {
         {session ? (
           <div className="flex items-center">
             <p className="capitalize mr-2">
-              Hola, <span className="font-bold">{session.user?.name}</span>
+              Hola,{' '}
+              <span className="font-bold">
+                {session.user?.name?.slice(0, 10)}
+              </span>
             </p>
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">

@@ -28,7 +28,7 @@ const PetsPage: NextPage = () => {
       <h1 className="text-5xl font-bold mb-8">Mis mascotas</h1>
       <Button onClick={redirectToCreatePet}>Nueva mascota</Button>
 
-      {havePets ? (
+      {havePets && (
         <ul className="flex justify-center gap-5">
           {pets.map((pet) => (
             <li key={pet.id} className="flex flex-col gap-1 justify-center">
@@ -51,8 +51,6 @@ const PetsPage: NextPage = () => {
             </li>
           ))}
         </ul>
-      ) : (
-        <p>Cargando tus mascotas...</p>
       )}
     </div>
   );

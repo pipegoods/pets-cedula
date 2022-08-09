@@ -9,10 +9,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { ownerId } = req.query;
+  const { id } = req.query;
   const pet = await prisma.pet.findMany({
     where: {
-      ownerId: ownerId as string,
+      ownerId: id as string,
     },
   });
 
