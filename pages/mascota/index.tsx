@@ -1,23 +1,32 @@
+import { Button } from '@components/Button';
 import { Pet } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
 const PetsPage: NextPage = () => {
   const { data } = useSession();
+  const router = useRouter();
   const { data: pets } = useSWR<Pet[]>(
     data ? `/api/owner/${data?.user?.id || ''}` : null,
     {
       refreshInterval: 0,
     }
-  ); //TODO: Sacar el id del usuario desde servidor
+  );
 
   const havePets = pets && pets.length > 0;
 
+  const redirectToCreatePet = () => {
+    router.push('/mascota/create');
+  };
+
   return (
-    <>
+    <div className="max-w-md">
       <h1 className="text-5xl font-bold mb-8">Mis mascotas</h1>
+      <Button onClick={redirectToCreatePet}>Nueva mascota</Button>
 
       {havePets ? (
         <ul className="flex justify-center gap-5">
@@ -29,7 +38,7 @@ const PetsPage: NextPage = () => {
                   query: { id: pet.id },
                 }}
               >
-                <img
+                <Image
                   src={pet.photo || ''}
                   alt={pet.name || ''}
                   width={500}
@@ -45,7 +54,7 @@ const PetsPage: NextPage = () => {
       ) : (
         <p>Cargando tus mascotas...</p>
       )}
-    </>
+    </div>
   );
 };
 export default PetsPage;
