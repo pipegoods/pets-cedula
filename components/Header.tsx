@@ -1,9 +1,12 @@
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from './Button';
 
 const Header = () => {
   const { data: session } = useSession();
+  const { theme, setTheme } = useTheme();
 
   return (
     <header className="navbar bg-base-100 fixed z-10">
@@ -12,9 +15,12 @@ const Header = () => {
           <a className="btn btn-ghost normal-case text-xl">Pets Cedula</a>
         </Link>
       </div>
-      <div className="flex-none">
+      <div className="flex-none gap-5">
+        <Button onClick={() => setTheme(theme === 'dark' ? 'cupcake' : 'dark')}>
+          {theme}
+        </Button>
         {session ? (
-          <>
+          <div className="flex items-center">
             <p className="capitalize mr-2">
               Hola, <span className="font-bold">{session.user?.name}</span>
             </p>
@@ -50,7 +56,7 @@ const Header = () => {
                 </li>
               </ul>
             </div>
-          </>
+          </div>
         ) : (
           <div className="tooltip tooltip-left" data-tip="Iniciar con Google">
             <label
